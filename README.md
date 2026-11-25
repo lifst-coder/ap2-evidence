@@ -51,7 +51,7 @@ The second reason is timing. Evidence problems show up weeks after the purchase,
 Python 3.10 or newer. With [pipx](https://pipx.pypa.io), one command puts `ap2-evidence` on your PATH:
 
 ```bash
-pipx install git+https://github.com/lifst-coder/ap2-evidence
+pipx install ap2-evidence
 ```
 
 Without pipx, install into a virtual environment.
@@ -63,7 +63,7 @@ python3 -m venv .venv
 ```
 
 ```bash
-.venv/bin/python -m pip install git+https://github.com/lifst-coder/ap2-evidence
+.venv/bin/python -m pip install ap2-evidence
 ```
 
 ```bash
@@ -77,10 +77,16 @@ python -m venv .venv
 ```
 
 ```bash
-.venv\Scripts\python -m pip install git+https://github.com/lifst-coder/ap2-evidence
+.venv\Scripts\python -m pip install ap2-evidence
 ```
 
 On Windows, write `.venv\Scripts\ap2-evidence` wherever the commands below say `ap2-evidence`. That works in every shell and needs no activation script.
+
+To install the unreleased development version from the main branch instead, give the git URL in place of the package name:
+
+```bash
+pipx install git+https://github.com/lifst-coder/ap2-evidence
+```
 
 Check it:
 
