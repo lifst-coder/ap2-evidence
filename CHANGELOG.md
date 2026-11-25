@@ -2,6 +2,16 @@
 
 All notable changes to this project are recorded here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/). While the version is 0.x, check IDs, the bundle format and the report schema may still change between minor versions; such changes will be listed here.
 
+## [Unreleased]
+
+### Changed
+
+- `pack` prints its warnings about the input files on stderr, each once, as `ap2-evidence: warning: ...`. Before, they were `warning:` lines in the summary on stdout; the summary no longer repeats them. This covers a mandate or receipt that does not parse, a receipt that looks like an SD-JWT (files swapped), an unsigned JSON receipt and the warnings from `--from-ap2-sample-db`. Files are still packed byte for byte and `pack` still exits 0.
+- `pack`'s summary marks a receipt that does not parse, or that looks like an SD-JWT, as `(unparsed)`, as it already did for mandates. Before, such a receipt had no marker.
+- The warning for an input that does not parse now says that the file does not look like an SD-JWT mandate chain or a signed receipt (JWS), that it was packed as it is, and that `verify` will report it.
+- `--trusted-keys FILE` with an empty file, or one holding only whitespace or a byte order mark, stops with "trusted keys file FILE is empty; check that the right file was given" (exit 2). Before, it reported a JSON error at line 1, column 1.
+- Every "is empty" error (bundle, `inspect` input, key file, trusted keys file, `pack` token file, stdin) names the input and ends with "; check that the right file was given". In a batch run the row's error says "bundle FILE is empty" instead of "input is empty".
+
 ## [0.1.0] - 2026-11-25
 
 First public release. Written against AP2 v0.2 (upstream commit `e1ea56d`, identical to tag `v0.2.0` for everything this tool depends on), using the upstream JSON schemas, the encoded sample tokens and the SDK source as the reference for field names and wire format.

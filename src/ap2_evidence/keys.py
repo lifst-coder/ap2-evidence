@@ -21,6 +21,7 @@ from cryptography.hazmat.primitives.asymmetric import ec, ed448, ed25519, rsa
 
 from . import strictjson
 from .bundle import (
+    CHECK_FILE,
     MAX_KEYS_PER_ROLE,
     PRIVATE_KEY_MESSAGE,
     ROLES,
@@ -271,7 +272,7 @@ def parse_key_text(text: str, where: str, flag: str = "--issuer-key") -> list[Im
         raise InputError(PRIVATE_KEY_MESSAGE.format(where=where))
     stripped = text.strip()
     if not stripped:
-        raise InputError(f"{where} is empty")
+        raise InputError(f"{where} is empty; {CHECK_FILE}")
     if "-----BEGIN" in stripped:
         return _from_pem(stripped, where)
     return _from_json(stripped, where, flag)

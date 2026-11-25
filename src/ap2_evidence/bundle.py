@@ -46,6 +46,10 @@ class InputError(ValueError):
     """Unreadable input that should end the CLI with exit code 2."""
 
 
+CHECK_FILE = "check that the right file was given"
+"""Hint that ends every "... is empty" message."""
+
+
 PRIVATE_KEY_MESSAGE = (
     "{where} holds a PRIVATE key, but a public key is expected here. Never share or pass "
     "around this file: anyone who has it can sign as its owner. Export only the public part "
@@ -87,14 +91,14 @@ def _json_problem(data: str | bytes, exc: strictjson.StrictJsonError) -> str:
     return f"not valid JSON at {where}" if where else str(exc)
 
 
-def parse_bundle_text(data: bytes | str) -> Any:
-    """Parse bundle bytes as strict JSON.
+def parse_bundle_text(data: bytes | str, where: str = "input") -> Any:
+    """Parse bundle bytes as strict JSON; ``where`` names the input in the empty message.
 
     Raises:
         InputError: If the input is empty or not strict JSON.
     """
     if not (data.strip() if isinstance(data, (bytes, str)) else data):
-        raise InputError("input is empty; check that the right file was given")
+        raise InputError(f"{where} is empty; {CHECK_FILE}")
     try:
         value = strictjson.loads(data, max_bytes=MAX_BUNDLE_BYTES)
     except strictjson.StrictJsonError as exc:
@@ -229,8 +233,8 @@ class KeyStore:
         return pool, note
 
 
-def load_trusted_keys(data: bytes | str) -> KeyStore:
-    """Load a ``--trusted-keys`` file (``{"role": [JWK, ...]}``).
+def load_trusted_keys(data: bytes | str, where: str = "the trusted keys file") -> KeyStore:
+    """Load a ``--trusted-keys`` file (``{"role": [JWK, ...]}``); ``where`` names it if empty.
 
     Raises:
         InputError: If the file is not valid or contains an invalid key.
@@ -244,6 +248,8 @@ def load_trusted_keys(data: bytes | str) -> KeyStore:
             "takes a JSON file with keys grouped by role, so pass a PEM public key or "
             "certificate with --issuer-key, --merchant-key or --processor-key instead"
         )
+    if not text.lstrip("\ufeff").strip():
+        raise InputError(f"{where} is empty; {CHECK_FILE}")
     try:
         value = strictjson.loads(data, max_bytes=MAX_BUNDLE_BYTES)
     except strictjson.StrictJsonError as exc:

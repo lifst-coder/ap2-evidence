@@ -308,7 +308,8 @@ def run(
     for idx, item in enumerate(items):
         try:
             data = read_bytes(item.path, "bundle")
-            bundle = parse_bundle_text(decode_text(data, f"bundle {item.display}"))
+            where = f"bundle {item.display}"
+            bundle = parse_bundle_text(decode_text(data, where), where)
         except InputError as exc:
             rows.append(Row(_clean(item.display), ERROR, error=_clean(str(exc), 500)))
             continue

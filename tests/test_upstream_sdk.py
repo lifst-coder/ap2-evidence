@@ -298,7 +298,7 @@ def test_import_unsigned_receipt_is_reported(tmp_path: Path) -> None:
         str(out),
     )
     assert p.returncode == 0, p.stderr
-    text = p.stdout.decode("utf-8", "replace")
+    text = p.stderr.decode("utf-8", "replace")  # pack's warnings go to stderr
     assert "this flow produced no signed payment receipt" in text
     stored = json.loads(out.read_text(encoding="utf-8"))["payment_receipt"]
     assert stored == hp["payment_receipt"]  # kept as the object it is

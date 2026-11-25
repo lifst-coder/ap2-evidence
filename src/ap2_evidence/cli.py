@@ -22,6 +22,7 @@ from ._version import __version__
 from .bundle import (
     ARTIFACTS,
     BUNDLE_VERSION,
+    CHECK_FILE,
     MAX_BUNDLE_BYTES,
     ROLES,
     InputError,
@@ -123,8 +124,9 @@ def _note(text: str) -> None:
 def _trusted(args: argparse.Namespace) -> KeyStore | None:
     store: KeyStore | None = None
     if args.trusted_keys is not None:
+        where = f"trusted keys file {args.trusted_keys}"
         data = _read_bytes(args.trusted_keys, "trusted keys file")
-        store = load_trusted_keys(decode_text(data, f"trusted keys file {args.trusted_keys}"))
+        store = load_trusted_keys(decode_text(data, where), where)
     role_keys = collect_role_keys(_role_files(args))
     for note in role_keys.notes():
         _note(note)
@@ -263,7 +265,8 @@ def cmd_verify(args: argparse.Namespace) -> int:
         path = args.bundle[0]
         data = _read_bytes(path, "bundle")
         source = hashlib.sha256(data).hexdigest()
-        bundle = parse_bundle_text(decode_text(data, f"bundle {path}"))
+        where = "bundle on stdin" if path == "-" else f"bundle {path}"
+        bundle = parse_bundle_text(decode_text(data, where), where)
         require_bundle_object(bundle, "stdin" if path == "-" else path)
     else:
         loose = read_loose_files(args)
@@ -368,6 +371,10 @@ def _shell_arg(value: str) -> str:
     return '"' + value.replace('"', '\\"') + '"'
 
 
+UNPARSED = "unparsed"
+"""Marker ``pack``'s summary shows for an input that does not parse as the token it should be."""
+
+
 def _check_mandate(name: str, path: str, text: str) -> tuple[str, list[str]]:
     """Return a description of a mandate chain and warnings (it is packed unchanged)."""
     if text.startswith("{"):
@@ -378,9 +385,9 @@ def _check_mandate(name: str, path: str, text: str) -> tuple[str, list[str]]:
     try:
         segs = parse_chain(text)
     except SdJwtError as exc:
-        return "unparsed", [
-            f"{name} from {path} does not parse as an SD-JWT chain ({exc.where}: {exc}); packed "
-            "as is, verify will report it"
+        return UNPARSED, [
+            f"{name} file {path} does not look like an SD-JWT mandate chain ({exc.where}: {exc}); "
+            "it was packed as it is, and 'ap2-evidence verify' will report it"
         ]
     return f"{len(segs)} segment(s)", []
 
@@ -412,14 +419,22 @@ def _check_receipt(name: str, path: str, text: str) -> tuple[Any, str, list[str]
         )
     if "~" in text:
         swapped = (
-            f"{name} from {path} contains '~' like an SD-JWT; receipts are plain JWTs, so "
-            "check that the files are not swapped"
+            f"{name} file {path} contains '~' like an SD-JWT; receipts are plain JWTs, so "
+            "check that the files are not swapped. It was packed as it is, and "
+            "'ap2-evidence verify' will report it"
         )
-        return text, "", [swapped]
+        return text, UNPARSED, [swapped]
     try:
         parse_compact(text)
     except JoseError as exc:
-        return text, "", [f"{name} from {path} is not a readable JWT ({exc}); packed as is"]
+        return (
+            text,
+            UNPARSED,
+            [
+                f"{name} file {path} does not look like a signed receipt, which is a JWS "
+                f"({exc}); it was packed as it is, and 'ap2-evidence verify' will report it"
+            ],
+        )
     return text, "JWT", []
 
 
@@ -427,7 +442,8 @@ def _pack_keys(args: argparse.Namespace, imp: SampleImport | None) -> RoleKeys:
     keys = collect_role_keys(_role_files(args))
     if args.trusted_keys is not None:
         text = _read_text(args.trusted_keys, "trusted keys file")
-        load_trusted_keys(text)  # validates and refuses private keys
+        # validates and refuses private keys
+        load_trusted_keys(text, f"trusted keys file {args.trusted_keys}")
         value = strictjson.loads(text, max_bytes=MAX_BUNDLE_BYTES)
         keys.add_role_map(value, f"--trusted-keys {Path(args.trusted_keys).name}")
     if imp is not None:
@@ -440,7 +456,7 @@ def cmd_pack(args: argparse.Namespace) -> int:
     """Run the ``pack`` command: assemble a bundle file from loose pieces."""
     slots: dict[str, Any] = {}
     described: dict[str, str] = {}
-    warnings: list[str] = []
+    warnings: list[str] = []  # about the inputs: printed once each on stderr
     notes: list[str] = []
     imp: SampleImport | None = None
     check_distinct([("--out", args.out), ("--keys-out", args.keys_out)], _input_files(args))
@@ -465,14 +481,14 @@ def cmd_pack(args: argparse.Namespace) -> int:
     for name, (path, raw) in read_loose_files(args).items():
         text = raw.strip()
         if not text:
-            raise InputError(f"{name.replace('_', ' ')} file {path} is empty")
+            shown = "on stdin" if path == "-" else f"file {path}"
+            raise InputError(f"{name.replace('_', ' ')} {shown} is empty; {CHECK_FILE}")
         stored: Any = text
         if name.endswith("_mandate"):
             desc, warn = _check_mandate(name, path, text)
-            warnings += warn
         else:
             stored, desc, warn = _check_receipt(name, path, text)
-            warnings += warn
+        warnings += warn
         slots[name] = stored
         described[name] = f"{path} ({desc})" if desc else path
     if not slots:
@@ -526,6 +542,8 @@ def cmd_pack(args: argparse.Namespace) -> int:
             json.dumps(keys.role_map(), indent=2, ensure_ascii=True) + "\n",
             overwrite=args.force,
         )
+    for w in warnings:
+        print(f"ap2-evidence: warning: {w}", file=sys.stderr)
     if args.embed_keys and keys.count():
         print(
             f"ap2-evidence: warning: --embed-keys put {keys.count()} public key(s) into the "
@@ -534,7 +552,7 @@ def cmd_pack(args: argparse.Namespace) -> int:
             "--trusted-keys.",
             file=sys.stderr,
         )
-    sys.stdout.write(_pack_summary(args, described, keys, expected, sources, warnings, notes))
+    sys.stdout.write(_pack_summary(args, described, keys, expected, sources, notes))
     return 0
 
 
@@ -544,7 +562,6 @@ def _pack_summary(
     keys: RoleKeys,
     expected: dict[str, dict[str, str]],
     sources: list[str],
-    warnings: list[str],
     notes: list[str],
 ) -> str:
     lines = [f"wrote {args.out} (bundle_version {BUNDLE_VERSION})"]
@@ -578,8 +595,6 @@ def _pack_summary(
         lines.append("expected values: none (aud/nonce checks will be SKIP and not required)")
     for n in notes:
         lines.append(f"note: {n}")
-    for w in warnings:
-        lines.append(f"warning: {w}")
     cmd = ["ap2-evidence", "verify", _shell_arg(args.out)]
     if args.keys_out and keys.count():
         cmd += ["--trusted-keys", _shell_arg(args.keys_out)]
@@ -595,7 +610,8 @@ def cmd_inspect(args: argparse.Namespace) -> int:
     """Run the ``inspect`` command."""
     text = _read_text(args.input, "input")
     if not text.strip():
-        raise InputError("input is empty")
+        where = "input on stdin" if args.input == "-" else f"input {args.input}"
+        raise InputError(f"{where} is empty; {CHECK_FILE}")
     info = inspect_input(text)
     if info.get("kind") == "unreadable":
         raise InputError(f"cannot decode input: {info.get('error')}")

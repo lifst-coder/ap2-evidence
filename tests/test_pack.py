@@ -397,9 +397,9 @@ def test_pack_unsigned_receipt_stored_as_object(tmp_path: Path, receipt: object)
         str(tmp_path / "b.json"),
     )
     assert p.returncode == 0, _err(p)
-    out = p.stdout.decode()
-    assert "this flow produced no signed payment receipt" in out
-    assert "proves nothing" in out
+    err = _err(p)  # the warning goes to stderr, the summary keeps a short marker
+    assert "this flow produced no signed payment receipt" in err
+    assert "proves nothing" in p.stdout.decode()
     b = json.loads((tmp_path / "b.json").read_text())
     want = receipt if isinstance(receipt, dict) else json.loads(receipt)
     assert b["payment_receipt"] == want  # an object, not a string
@@ -423,6 +423,7 @@ def test_pack_warns_on_swapped_or_broken_tokens(tmp_path: Path) -> None:
         str(tmp_path / "b.json"),
     )
     assert p.returncode == 0, _err(p)
-    out = p.stdout.decode()
-    assert "does not parse as an SD-JWT chain" in out
-    assert "swapped" in out
+    out, err = p.stdout.decode(), _err(p)  # warnings on stderr, markers in the summary
+    assert "does not look like an SD-JWT mandate chain" in err
+    assert "swapped" in err
+    assert out.count("(unparsed)") == 2 and "warning:" not in out
