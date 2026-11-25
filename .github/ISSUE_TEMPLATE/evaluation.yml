@@ -1,0 +1,70 @@
+name: Evaluating this for real use
+description: You are considering ap2-evidence for a real system (sandbox, pilot or production) and want to say what you need.
+title: "[evaluation] "
+labels: ["evaluation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This form is for people who would use the tool on real agent payments: merchants, payment
+        providers, agent platforms, dispute teams. It takes two minutes and it directly decides what
+        gets built next.
+
+        **Do not post real payment data, tokens or keys here.** Describe the situation in words.
+  - type: dropdown
+    id: role
+    attributes:
+      label: Where do you sit?
+      options:
+        - Merchant or merchant platform
+        - Payment service provider, acquirer or processor
+        - Agent or shopping-assistant platform
+        - Credential provider or wallet
+        - Dispute or chargeback management
+        - Card network or scheme
+        - Researcher, auditor or standards work
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: stage
+    attributes:
+      label: How far along are you with agent payments?
+      options:
+        - Reading the specifications
+        - Running the official samples
+        - Building an integration in a sandbox
+        - Pilot with real users
+        - In production
+    validations:
+      required: true
+  - type: checkboxes
+    id: protocols
+    attributes:
+      label: Which protocols matter to you?
+      options:
+        - label: AP2 (Agent Payments Protocol)
+        - label: UCP with the AP2 mandate extension
+        - label: ACP (Agentic Commerce Protocol)
+        - label: Verifiable Intent
+        - label: x402
+        - label: Something else (say which below)
+  - type: textarea
+    id: need
+    attributes:
+      label: What do you need to be able to do?
+      description: >
+        For example: check every transaction's evidence when it is captured, hand a report to a
+        dispute team, prove to a partner that your implementation emits verifiable evidence,
+        keep evidence for a retention period.
+    validations:
+      required: true
+  - type: textarea
+    id: blockers
+    attributes:
+      label: What stops you from using ap2-evidence for that today?
+      description: Missing input format, missing protocol, report not usable by your team, licence, hosting, anything.
+  - type: textarea
+    id: more
+    attributes:
+      label: Anything else

@@ -1,0 +1,1958 @@
+{
+ "format": "ap2-evidence-cross-check/1",
+ "group": "kya-bench",
+ "title": "kya-bench AP2 bundles",
+ "source": {
+  "name": "NagaYu/kya-bench",
+  "url": "https://github.com/NagaYu/kya-bench",
+  "commit": "689c379361956de88ad3d1b6ec37e2f85f4a6fcb",
+  "licence": "Apache-2.0",
+  "files": "`fixtures/vectors/*.json` with `protocol: ap2`"
+ },
+ "conversion": "Each *.bundle.json re-wraps one vector of the source into the ap2-evidence/1 bundle format (tools/cross_check/convert.py); tokens are copied unchanged. `options` are the verify_bundle arguments without the author's context, `context_options` with it.",
+ "regenerate": "python tools/cross_check run --src <directory with the pinned clones>",
+ "summary": {
+  "vectors": 32,
+  "agree": 22,
+  "agree (incomplete input)": 3,
+  "stricter": 4,
+  "disagree": 3
+ },
+ "summary_with_context": {
+  "vectors": 32,
+  "agree": 23,
+  "agree (incomplete input)": 3,
+  "stricter": 4,
+  "disagree": 2
+ },
+ "vectors": [
+  {
+   "id": "ap2-acceptable-items-undisclosed",
+   "bundle": "ap2-acceptable-items-undisclosed.bundle.json",
+   "origin": "fixtures/vectors/ap2-acceptable-items-undisclosed.json",
+   "expected": "indeterminate",
+   "detail": "SPEC_GAP | Line-item requirement whose acceptable items are all undisclosed",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM35:item_not_acceptable"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "stricter",
+    "reason": "undisclosed-acceptable-items"
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM35:item_not_acceptable"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "stricter",
+    "reason": "undisclosed-acceptable-items"
+   }
+  },
+  {
+   "id": "ap2-amount-over-max",
+   "bundle": "ap2-amount-over-max.bundle.json",
+   "origin": "fixtures/vectors/ap2-amount-over-max.json",
+   "expected": "reject",
+   "detail": "AP2_CONSTRAINT_VIOLATION | Payment above amount_range max",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM32:amount_above_max"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM32:amount_above_max"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-amount-range-decimal-max",
+   "bundle": "ap2-amount-range-decimal-max.bundle.json",
+   "origin": "fixtures/vectors/ap2-amount-range-decimal-max.json",
+   "expected": "indeterminate",
+   "detail": "SPEC_GAP | amount_range max given as 250.0 (documentation example style)",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM21:malformed_constraint",
+     "PM32:malformed_constraint"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "stricter",
+    "reason": "amount-range-units"
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM21:malformed_constraint",
+     "PM32:malformed_constraint"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "stricter",
+    "reason": "amount-range-units"
+   }
+  },
+  {
+   "id": "ap2-aud-mismatch",
+   "bundle": "ap2-aud-mismatch.bundle.json",
+   "origin": "fixtures/vectors/ap2-aud-mismatch.json",
+   "expected": "reject",
+   "detail": "AP2_AUD_MISMATCH | Payment hop audience is not the expected verifier",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM14:aud_mismatch"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM14:aud_mismatch"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-budget-cumulative-exceeded",
+   "bundle": "ap2-budget-cumulative-exceeded.bundle.json",
+   "origin": "fixtures/vectors/ap2-budget-cumulative-exceeded.json",
+   "expected": "reject",
+   "detail": "AP2_CONSTRAINT_VIOLATION | Past spend plus this payment exceeds the budget under either unit reading",
+   "notes": [
+    "mandate_context {'total_amount': 10000, 'total_uses': 1} supplied as history",
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    },
+    "history": {
+     "prior_total": {
+      "amount": 10000,
+      "currency": "USD"
+     },
+     "prior_uses": 1
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key",
+     "PM39:history_needed"
+    ],
+    "classification": "disagree",
+    "reason": "history-not-supplied"
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM39:budget_exceeded"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-budget-unit-ambiguous",
+   "bundle": "ap2-budget-unit-ambiguous.bundle.json",
+   "origin": "fixtures/vectors/ap2-budget-unit-ambiguous.json",
+   "expected": "indeterminate",
+   "detail": "SPEC_GAP | Budget max 250: within budget as dollars (SDK), over budget as cents (Amount type)",
+   "notes": [
+    "mandate_context {'total_amount': 0, 'total_uses': 0} supplied as history",
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    },
+    "history": {
+     "prior_total": {
+      "amount": 0,
+      "currency": "USD"
+     },
+     "prior_uses": 0
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key",
+     "PM39:history_needed"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-cart-total-mismatch",
+   "bundle": "ap2-cart-total-mismatch.bundle.json",
+   "origin": "fixtures/vectors/ap2-cart-total-mismatch.json",
+   "expected": "indeterminate",
+   "detail": "SPEC_GAP | Checkout total differs from the payment amount",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "XC01:amount_mismatch"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "stricter",
+    "reason": "checkout-total-vs-amount"
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "XC01:amount_mismatch"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "stricter",
+    "reason": "checkout-total-vs-amount"
+   }
+  },
+  {
+   "id": "ap2-checkout-hash-mismatch",
+   "bundle": "ap2-checkout-hash-mismatch.bundle.json",
+   "origin": "fixtures/vectors/ap2-checkout-hash-mismatch.json",
+   "expected": "reject",
+   "detail": "AP2_CHECKOUT_HASH_MISMATCH | Closed checkout mandate's checkout_hash is not the hash of checkout_jwt",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM31:hash_mismatch",
+     "PM30:checkout_hash_mismatch"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM31:hash_mismatch",
+     "PM30:checkout_hash_mismatch"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-closed-not-signed-by-cnf-agent",
+   "bundle": "ap2-closed-not-signed-by-cnf-agent.bundle.json",
+   "origin": "fixtures/vectors/ap2-closed-not-signed-by-cnf-agent.json",
+   "expected": "reject",
+   "detail": "AP2_SIGNATURE_INVALID | Closed payment mandate signed by an agent other than the open mandate's cnf",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM08:signature_invalid"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM08:signature_invalid"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-hnp-issuer-jwt-hash",
+   "bundle": "ap2-hnp-issuer-jwt-hash.bundle.json",
+   "origin": "fixtures/vectors/ap2-hnp-issuer-jwt-hash.json",
+   "expected": "accept",
+   "detail": "| Agent hops bound with issuer_jwt_hash instead of sd_hash",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "no-key"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "no-key"
+   }
+  },
+  {
+   "id": "ap2-hnp-valid",
+   "bundle": "ap2-hnp-valid.bundle.json",
+   "origin": "fixtures/vectors/ap2-hnp-valid.json",
+   "expected": "accept",
+   "detail": "| Human-not-present: user-signed open mandates, agent-signed closed mandates, constraints met",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "no-key"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "no-key"
+   }
+  },
+  {
+   "id": "ap2-hp-valid",
+   "bundle": "ap2-hp-valid.bundle.json",
+   "origin": "fixtures/vectors/ap2-hp-valid.json",
+   "expected": "accept",
+   "detail": "| Human-present: closed mandates signed via the trusted surface",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "no-key"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "no-key"
+   }
+  },
+  {
+   "id": "ap2-line-item-product-shape",
+   "bundle": "ap2-line-item-product-shape.bundle.json",
+   "origin": "fixtures/vectors/ap2-line-item-product-shape.json",
+   "expected": "indeterminate",
+   "detail": "SPEC_GAP | Cart line item uses the documentation's 'product' instead of UCP 'item'",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM35:malformed_checkout"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "stricter",
+    "reason": "non-ucp-line-items"
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM35:malformed_checkout"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "stricter",
+    "reason": "non-ucp-line-items"
+   }
+  },
+  {
+   "id": "ap2-line-items-extra-item",
+   "bundle": "ap2-line-items-extra-item.bundle.json",
+   "origin": "fixtures/vectors/ap2-line-items-extra-item.json",
+   "expected": "reject",
+   "detail": "AP2_CONSTRAINT_VIOLATION | Cart holds an extra item that no requirement covers",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM35:item_not_acceptable"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM35:item_not_acceptable"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-malformed-chain",
+   "bundle": "ap2-malformed-chain.bundle.json",
+   "origin": "fixtures/vectors/ap2-malformed-chain.json",
+   "expected": "reject",
+   "detail": "AP2_TOKEN_MALFORMED | Payment chain is not an SD-JWT",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM01:parse_error"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM01:parse_error"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-merchant-not-allowed",
+   "bundle": "ap2-merchant-not-allowed.bundle.json",
+   "origin": "fixtures/vectors/ap2-merchant-not-allowed.json",
+   "expected": "reject",
+   "detail": "AP2_CONSTRAINT_VIOLATION | Checkout merchant not allowed",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM34:merchant_not_allowed",
+     "PM33:payee_not_allowed"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM34:merchant_not_allowed",
+     "PM33:payee_not_allowed"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-mixed-flows",
+   "bundle": "ap2-mixed-flows.bundle.json",
+   "origin": "fixtures/vectors/ap2-mixed-flows.json",
+   "expected": "indeterminate",
+   "detail": "SPEC_GAP | Human-present checkout with a human-not-present payment",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-no-merchant-revealed",
+   "bundle": "ap2-no-merchant-revealed.bundle.json",
+   "origin": "fixtures/vectors/ap2-no-merchant-revealed.json",
+   "expected": "reject",
+   "detail": "AP2_CONSTRAINT_VIOLATION | Allowed merchants all left undisclosed",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM34:none_revealed"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM34:none_revealed"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-open-mandate-expired",
+   "bundle": "ap2-open-mandate-expired.bundle.json",
+   "origin": "fixtures/vectors/ap2-open-mandate-expired.json",
+   "expected": "reject",
+   "detail": "AP2_EXPIRED | Open mandates expired",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM16:signed_after_expiry",
+     "CM19:not_valid_at",
+     "PM16:signed_after_expiry",
+     "PM19:not_valid_at"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM16:signed_after_expiry",
+     "CM19:not_valid_at",
+     "PM16:signed_after_expiry",
+     "PM19:not_valid_at"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-payee-not-allowed",
+   "bundle": "ap2-payee-not-allowed.bundle.json",
+   "origin": "fixtures/vectors/ap2-payee-not-allowed.json",
+   "expected": "reject",
+   "detail": "AP2_CONSTRAINT_VIOLATION | Payee outside the allowed payees",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM33:payee_not_allowed",
+     "XC02:payee_mismatch"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM33:payee_not_allowed",
+     "XC02:payee_mismatch"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-payment-mandate-missing",
+   "bundle": "ap2-payment-mandate-missing.bundle.json",
+   "origin": "fixtures/vectors/ap2-payment-mandate-missing.json",
+   "expected": "reject",
+   "detail": "AP2_MANDATE_MISSING | Only the checkout mandate is presented",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "disagree",
+    "reason": "missing-input-is-incomplete"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "disagree",
+    "reason": "missing-input-is-incomplete"
+   }
+  },
+  {
+   "id": "ap2-payment-reference-mismatch",
+   "bundle": "ap2-payment-reference-mismatch.bundle.json",
+   "origin": "fixtures/vectors/ap2-payment-reference-mismatch.json",
+   "expected": "reject",
+   "detail": "AP2_CONSTRAINT_VIOLATION | Payment reference names a different open checkout mandate",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM31:reference_mismatch"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM31:reference_mismatch"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-preset-claim-changed",
+   "bundle": "ap2-preset-claim-changed.bundle.json",
+   "origin": "fixtures/vectors/ap2-preset-claim-changed.json",
+   "expected": "reject",
+   "detail": "AP2_PRESET_CLAIM_CHANGED | Open mandate pre-sets the instrument; the closed mandate uses another",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM18:preset_claim_changed"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM18:preset_claim_changed"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-recurrence-period-undefined",
+   "bundle": "ap2-recurrence-period-undefined.bundle.json",
+   "origin": "fixtures/vectors/ap2-recurrence-period-undefined.json",
+   "expected": "indeterminate",
+   "detail": "SPEC_GAP | Monthly agent recurrence with a previous use: period boundaries are undefined",
+   "notes": [
+    "mandate_context {'total_amount': 0, 'total_uses': 1, 'last_used_date': 1789136000} supplied as history",
+    "last_used_date has no counterpart in the history option",
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    },
+    "history": {
+     "prior_total": {
+      "amount": 0,
+      "currency": "USD"
+     },
+     "prior_uses": 1
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key",
+     "PM39:history_needed"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-root-bad-signature",
+   "bundle": "ap2-root-bad-signature.bundle.json",
+   "origin": "fixtures/vectors/ap2-root-bad-signature.json",
+   "expected": "reject",
+   "detail": "AP2_SIGNATURE_INVALID | Root token signed by a key other than its kid",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM03:signature_invalid"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM03:signature_invalid"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-root-key-untrusted",
+   "bundle": "ap2-root-key-untrusted.bundle.json",
+   "origin": "fixtures/vectors/ap2-root-key-untrusted.json",
+   "expected": "reject",
+   "detail": "AP2_ROOT_KEY_UNKNOWN | Root token kid not in the trust list",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "disagree",
+    "reason": "kid-is-a-hint"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "disagree",
+    "reason": "kid-is-a-hint"
+   }
+  },
+  {
+   "id": "ap2-sd-hash-mismatch",
+   "bundle": "ap2-sd-hash-mismatch.bundle.json",
+   "origin": "fixtures/vectors/ap2-sd-hash-mismatch.json",
+   "expected": "reject",
+   "detail": "AP2_BINDING_MISMATCH | Agent hop's sd_hash does not bind the open mandate",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM09:binding_mismatch"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM09:binding_mismatch"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-terminal-carries-cnf",
+   "bundle": "ap2-terminal-carries-cnf.bundle.json",
+   "origin": "fixtures/vectors/ap2-terminal-carries-cnf.json",
+   "expected": "reject",
+   "detail": "AP2_CNF_FORBIDDEN | Terminal closed mandate re-delegates with cnf",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM12:cnf_in_closed"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM12:cnf_in_closed"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-terminal-wrong-typ",
+   "bundle": "ap2-terminal-wrong-typ.bundle.json",
+   "origin": "fixtures/vectors/ap2-terminal-wrong-typ.json",
+   "expected": "reject",
+   "detail": "AP2_TYP_INVALID | Agent hop typ is plain JWT",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM07:wrong_typ"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM07:wrong_typ"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-transaction-id-mismatch",
+   "bundle": "ap2-transaction-id-mismatch.bundle.json",
+   "origin": "fixtures/vectors/ap2-transaction-id-mismatch.json",
+   "expected": "reject",
+   "detail": "AP2_TRANSACTION_ID_MISMATCH | Payment transaction_id is not the checkout hash",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM30:transaction_id_mismatch"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM30:transaction_id_mismatch"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-unknown-constraint",
+   "bundle": "ap2-unknown-constraint.bundle.json",
+   "origin": "fixtures/vectors/ap2-unknown-constraint.json",
+   "expected": "reject",
+   "detail": "AP2_CONSTRAINT_UNKNOWN | Open payment mandate with an unknown constraint type",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM17:unknown_constraint_type"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM17:unknown_constraint_type"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "ap2-unknown-vct",
+   "bundle": "ap2-unknown-vct.bundle.json",
+   "origin": "fixtures/vectors/ap2-unknown-vct.json",
+   "expected": "reject",
+   "detail": "AP2_VCT_UNKNOWN | Closed payment mandate with vct .2",
+   "notes": [
+    "context: the whole jwks.json trust list pinned as mandate_issuer keys"
+   ],
+   "options": {
+    "at": 1790000000
+   },
+   "context_options": {
+    "at": 1790000000,
+    "trusted_keys": {
+     "mandate_issuer": [
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "CAYLa66qoStB0540VKifjkV-g4hZeemWTbnKXmtcu_I",
+       "y": "LNTXjJ0mmtjBlYXUU0tR7mP-37YCCeq2fNau2aseaHM",
+       "kid": "issuer-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      },
+      {
+       "kty": "EC",
+       "crv": "P-256",
+       "x": "rgrObd8mvkkmyLzcSmmlKuerIoh00HAtxS5BioV8x_c",
+       "y": "ocI4Zf4ul1Q5YUb7b9dhnZGRdHfmw88cI7zXJtlWlyg",
+       "kid": "agent-provider-key-1",
+       "use": "sig",
+       "alg": "ES256"
+      }
+     ]
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM11:wrong_vct"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM11:wrong_vct"
+    ],
+    "blocking": [
+     "CM32:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  }
+ ]
+}

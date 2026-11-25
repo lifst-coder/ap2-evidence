@@ -1,0 +1,10 @@
+{
+  "checkout": {
+    "aud": "merchant",
+    "nonce": "75a7490ffa894901b0dc6d0e3114c007"
+  },
+  "payment": {
+    "aud": "credential-provider",
+    "nonce": "f8b53878fc914423adf6d096f9e57248"
+  }
+}

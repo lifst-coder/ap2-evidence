@@ -1,0 +1,157 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: lint and type check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Format check
+        run: ruff format --check .
+
+      - name: Type check
+        run: mypy
+
+  test:
+    name: test (${{ matrix.os }}, py${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install
+        run: python -m pip install -e ".[test]"
+
+      - name: Tests
+        run: pytest -q
+
+      - name: Smoke test (demo must exit 0)
+        run: ap2-evidence demo
+
+  min-deps:
+    name: test with the oldest supported cryptography
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install
+        run: python -m pip install -e ".[test]" "cryptography==41.0.*"
+
+      - name: Tests
+        run: pytest -q
+
+  action:
+    name: GitHub Action self-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: A valid bundle passes
+        uses: ./
+        with:
+          bundles: examples/demo-valid.bundle.json
+
+      - name: A tampered bundle fails the step
+        id: tampered
+        continue-on-error: true
+        uses: ./
+        with:
+          bundles: examples/demo-tamper-amount.bundle.json
+
+      - name: Check that the tampered bundle was rejected
+        shell: bash
+        env:
+          OUTCOME: ${{ steps.tampered.outcome }}
+          CODE: ${{ steps.tampered.outputs.exit-code }}
+        run: |
+          test "${OUTCOME}" = "failure"
+          test "${CODE}" = "1"
+
+      - name: A folder runs as a batch
+        id: batch
+        continue-on-error: true
+        uses: ./
+        with:
+          bundles: examples
+          fail-on-incomplete: "false"
+
+      - name: Check the batch result (the folder holds a tampered bundle)
+        shell: bash
+        env:
+          CODE: ${{ steps.batch.outputs.exit-code }}
+        run: test "${CODE}" = "1"
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install build tools
+        run: python -m pip install build twine
+
+      - name: Build sdist and wheel
+        run: python -m build
+
+      - name: Check distribution metadata
+        run: twine check dist/*
+
+      - name: Install wheel into a clean venv and run demo
+        run: |
+          python -m venv /tmp/wheel-env
+          /tmp/wheel-env/bin/python -m pip install --upgrade pip
+          /tmp/wheel-env/bin/python -m pip install dist/*.whl
+          cd /tmp
+          /tmp/wheel-env/bin/ap2-evidence --version
+          /tmp/wheel-env/bin/ap2-evidence demo
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          if-no-files-found: error

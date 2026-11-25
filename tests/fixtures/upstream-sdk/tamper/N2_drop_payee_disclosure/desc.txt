@@ -1,0 +1,1 @@
+allowed_payees entry disclosure removed from open payment segment (no re-sign)

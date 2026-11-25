@@ -1,0 +1,1 @@
+merchant+agent produce a new consistent checkout (total 5000); payment unchanged

@@ -1,0 +1,9 @@
+# The minting scripts here are kept exactly as they were run against the upstream AP2 SDK,
+# so they are not linted or reformatted. collect_fixtures.py follows the project style.
+extend = "../../../../pyproject.toml"
+
+[lint]
+exclude = ["drive_samples.py", "mint_upstream.py", "mint_variants.py", "probes.py", "tamper.py"]
+
+[format]
+exclude = ["drive_samples.py", "mint_upstream.py", "mint_variants.py", "probes.py", "tamper.py"]

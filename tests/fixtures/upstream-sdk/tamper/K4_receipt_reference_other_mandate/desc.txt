@@ -1,0 +1,1 @@
+merchant signs checkout receipt whose reference is the payment mandate's

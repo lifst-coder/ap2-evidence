@@ -1,0 +1,119 @@
+name: "AP2 evidence check"
+description: "Verify AP2 (Agent Payments Protocol) payment evidence bundles and fail the job when the evidence does not verify."
+author: "ap2-evidence contributors"
+branding:
+  icon: "check-circle"
+  color: "blue"
+
+inputs:
+  bundles:
+    description: "Evidence bundle files and/or folders, separated by spaces or newlines. A folder means every bundle (*.json) in it."
+    required: true
+  trusted-keys:
+    description: "Path to a trusted-keys file ({\"mandate_issuer\": [...], \"merchant\": [...], \"payment_processor\": [...]}). Without it, keys inside the bundles are used and are only self-asserted."
+    required: false
+    default: ""
+  require-pinned:
+    description: "\"true\" to treat signatures that were checked only with keys from inside the bundle as not verified (INCOMPLETE)."
+    required: false
+    default: "false"
+  fail-on-incomplete:
+    description: "\"true\" (default) fails the job when a bundle is INCOMPLETE. \"false\" fails only on FAILED or unreadable bundles."
+    required: false
+    default: "true"
+  recursive:
+    description: "\"true\" to also look into subfolders."
+    required: false
+    default: "false"
+  report-dir:
+    description: "Folder that receives one Markdown report per bundle (batch runs). Upload it with actions/upload-artifact if you want to keep it."
+    required: false
+    default: "ap2-evidence-reports"
+  python-version:
+    description: "Python version used to run the verifier."
+    required: false
+    default: "3.12"
+
+outputs:
+  exit-code:
+    description: "Exit code of ap2-evidence verify: 0 VERIFIED, 1 FAILED, 3 INCOMPLETE, 2 unreadable input."
+    value: ${{ steps.verify.outputs.exit-code }}
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: Install ap2-evidence
+      shell: bash
+      run: python -m pip install --quiet "${GITHUB_ACTION_PATH}"
+
+    - name: Verify evidence
+      id: verify
+      shell: bash
+      env:
+        AP2_BUNDLES: ${{ inputs.bundles }}
+        AP2_TRUSTED_KEYS: ${{ inputs.trusted-keys }}
+        AP2_REQUIRE_PINNED: ${{ inputs.require-pinned }}
+        AP2_FAIL_ON_INCOMPLETE: ${{ inputs.fail-on-incomplete }}
+        AP2_RECURSIVE: ${{ inputs.recursive }}
+        AP2_REPORT_DIR: ${{ inputs.report-dir }}
+      run: |
+        # Inputs arrive through the environment, never interpolated into this script.
+        read -r -d '' -a bundles <<< "${AP2_BUNDLES}" || true
+        if [ "${#bundles[@]}" -eq 0 ]; then
+          echo "::error::the 'bundles' input is empty"
+          exit 2
+        fi
+        args=(verify "${bundles[@]}")
+        if [ -n "${AP2_TRUSTED_KEYS}" ]; then args+=(--trusted-keys "${AP2_TRUSTED_KEYS}"); fi
+        if [ "${AP2_REQUIRE_PINNED}" = "true" ]; then args+=(--require-pinned); fi
+        if [ "${AP2_RECURSIVE}" = "true" ]; then args+=(--recursive); fi
+        batch=false
+        if [ "${#bundles[@]}" -gt 1 ] || [ -d "${bundles[0]}" ]; then
+          batch=true
+          # --force: on a runner that keeps its workspace, reports of an earlier run are replaced.
+          args+=(--format md --out-dir "${AP2_REPORT_DIR}" --force)
+        fi
+
+        set +e
+        ap2-evidence "${args[@]}" > ap2-evidence-output.txt
+        code=$?
+        set -e
+
+        cat ap2-evidence-output.txt
+        {
+          echo "### AP2 evidence check"
+          echo
+          echo '```text'
+          head -c 60000 ap2-evidence-output.txt
+          echo
+          echo '```'
+          if [ "${batch}" = "true" ]; then
+            echo
+            echo "Per-bundle reports were written to \`${AP2_REPORT_DIR}\`."
+          fi
+        } >> "${GITHUB_STEP_SUMMARY}"
+        echo "exit-code=${code}" >> "${GITHUB_OUTPUT}"
+
+        case "${code}" in
+          0) exit 0 ;;
+          3)
+            if [ "${AP2_FAIL_ON_INCOMPLETE}" = "true" ]; then
+              echo "::error::at least one bundle is INCOMPLETE: no check failed, but required checks could not be done"
+              exit 3
+            fi
+            echo "::warning::at least one bundle is INCOMPLETE"
+            exit 0
+            ;;
+          1)
+            echo "::error::at least one bundle FAILED verification"
+            exit 1
+            ;;
+          *)
+            echo "::error::ap2-evidence could not read its input (exit code ${code})"
+            exit "${code}"
+            ;;
+        esac

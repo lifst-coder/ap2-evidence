@@ -1,0 +1,1268 @@
+{
+ "format": "ap2-evidence-cross-check/1",
+ "group": "goodmeta",
+ "title": "goodmeta token vectors",
+ "source": {
+  "name": "goodmeta/ap2-conformance",
+  "url": "https://github.com/goodmeta/ap2-conformance",
+  "commit": "41dff653dea4a3025ca6e1d5339121cd8a1623a5",
+  "licence": "Apache-2.0 (with NOTICE)",
+  "files": "`vectors/chain.json`, `vectors/receipts.json`, `vectors/hash-pairs.json`"
+ },
+ "conversion": "Each *.bundle.json re-wraps one vector of the source into the ap2-evidence/1 bundle format (tools/cross_check/convert.py); tokens are copied unchanged. `options` are the verify_bundle arguments without the author's context, `context_options` with it.",
+ "regenerate": "python tools/cross_check run --src <directory with the pinned clones>",
+ "summary": {
+  "vectors": 36,
+  "agree": 24,
+  "agree (incomplete input)": 7,
+  "stricter": 0,
+  "disagree": 5
+ },
+ "summary_with_context": {
+  "vectors": 36,
+  "agree": 24,
+  "agree (incomplete input)": 7,
+  "stricter": 0,
+  "disagree": 5
+ },
+ "vectors": [
+  {
+   "id": "chain.valid_payment_2hop",
+   "bundle": "chain.valid_payment_2hop.bundle.json",
+   "origin": "vectors/chain.json name=valid_payment_2hop",
+   "expected": "accept",
+   "detail": "valid",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "agree (incomplete input)",
+    "reason": "partial-bundle"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "agree (incomplete input)",
+    "reason": "partial-bundle"
+   }
+  },
+  {
+   "id": "chain.valid_payment_3hop",
+   "bundle": "chain.valid_payment_3hop.bundle.json",
+   "origin": "vectors/chain.json name=valid_payment_3hop",
+   "expected": "accept",
+   "detail": "valid",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM20:delegation_unsupported"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "delegation-depth"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM20:delegation_unsupported"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "delegation-depth"
+   }
+  },
+  {
+   "id": "chain.valid_payment_3hop_issuer_jwt_hash",
+   "bundle": "chain.valid_payment_3hop_issuer_jwt_hash.bundle.json",
+   "origin": "vectors/chain.json name=valid_payment_3hop_issuer_jwt_hash",
+   "expected": "accept",
+   "detail": "valid",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM20:delegation_unsupported"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "delegation-depth"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM20:delegation_unsupported"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "delegation-depth"
+   }
+  },
+  {
+   "id": "chain.tampered_root_payload",
+   "bundle": "chain.tampered_root_payload.bundle.json",
+   "origin": "vectors/chain.json name=tampered_root_payload",
+   "expected": "reject",
+   "detail": "root signature invalid",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM01:parse_error"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM01:parse_error"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "chain.wrong_cnf_key",
+   "bundle": "chain.wrong_cnf_key.bundle.json",
+   "origin": "vectors/chain.json name=wrong_cnf_key",
+   "expected": "reject",
+   "detail": "hop signature does not verify under prev cnf.jwk",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM08:signature_invalid"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM08:signature_invalid"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "chain.binding_sd_hash_mismatch",
+   "bundle": "chain.binding_sd_hash_mismatch.bundle.json",
+   "origin": "vectors/chain.json name=binding_sd_hash_mismatch",
+   "expected": "reject",
+   "detail": "sd_hash mismatch",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM09:binding_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM09:binding_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "chain.aud_mismatch",
+   "bundle": "chain.aud_mismatch.bundle.json",
+   "origin": "vectors/chain.json name=aud_mismatch",
+   "expected": "reject",
+   "detail": "terminal aud mismatch",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM14:aud_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM14:aud_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "chain.nonce_mismatch",
+   "bundle": "chain.nonce_mismatch.bundle.json",
+   "origin": "vectors/chain.json name=nonce_mismatch",
+   "expected": "reject",
+   "detail": "terminal nonce mismatch",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM15:nonce_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM15:nonce_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "chain.wrong_root_key",
+   "bundle": "chain.wrong_root_key.bundle.json",
+   "origin": "vectors/chain.json name=wrong_root_key",
+   "expected": "reject",
+   "detail": "root signature does not verify under given key",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM03:signature_invalid"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM03:signature_invalid"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "chain.wrong_typ",
+   "bundle": "chain.wrong_typ.bundle.json",
+   "origin": "vectors/chain.json name=wrong_typ",
+   "expected": "reject",
+   "detail": "unexpected typ",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM07:wrong_typ"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM07:wrong_typ"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "chain.both_binding_claims",
+   "bundle": "chain.both_binding_claims.bundle.json",
+   "origin": "vectors/chain.json name=both_binding_claims",
+   "expected": "reject",
+   "detail": "exactly one binding claim required",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM09:binding_claim_count"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM09:binding_claim_count"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "chain.neither_binding_claim",
+   "bundle": "chain.neither_binding_claim.bundle.json",
+   "origin": "vectors/chain.json name=neither_binding_claim",
+   "expected": "reject",
+   "detail": "exactly one binding claim required",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM09:binding_claim_count"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM09:binding_claim_count"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "chain.terminal_with_cnf",
+   "bundle": "chain.terminal_with_cnf.bundle.json",
+   "origin": "vectors/chain.json name=terminal_with_cnf",
+   "expected": "reject",
+   "detail": "terminal MUST NOT carry cnf",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM11:wrong_vct",
+     "PM12:cnf_in_closed",
+     "PM13:missing_field"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM11:wrong_vct",
+     "PM12:cnf_in_closed",
+     "PM13:missing_field"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "chain.intermediate_without_cnf",
+   "bundle": "chain.intermediate_without_cnf.bundle.json",
+   "origin": "vectors/chain.json name=intermediate_without_cnf",
+   "expected": "reject",
+   "detail": "intermediate requires cnf",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM07:intermediate_typ"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM07:intermediate_typ"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "chain.expired",
+   "bundle": "chain.expired.bundle.json",
+   "origin": "vectors/chain.json name=expired",
+   "expected": "reject",
+   "detail": "token expired",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM19:not_valid_at"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM19:not_valid_at"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "chain.alg_swap_none_root",
+   "bundle": "chain.alg_swap_none_root.bundle.json",
+   "origin": "vectors/chain.json name=alg_swap_none_root",
+   "expected": "reject",
+   "detail": "alg not ES256",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM02:alg_not_allowed",
+     "PM09:binding_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM02:alg_not_allowed",
+     "PM09:binding_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "chain.alg_swap_hs256_hop",
+   "bundle": "chain.alg_swap_hs256_hop.bundle.json",
+   "origin": "vectors/chain.json name=alg_swap_hs256_hop",
+   "expected": "reject",
+   "detail": "alg not ES256",
+   "notes": [],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM08:alg_not_allowed"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM08:alg_not_allowed"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "chain.valid_x5c",
+   "bundle": "chain.valid_x5c.bundle.json",
+   "origin": "vectors/chain.json name=valid_x5c",
+   "expected": "accept",
+   "detail": "valid",
+   "notes": [
+    "root key given as an x5c chain with 1 trusted root certificate(s); not representable (no x5c support)"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM03:x5c_unsupported"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "x5c"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM03:x5c_unsupported"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "x5c"
+   }
+  },
+  {
+   "id": "chain.x5c_untrusted_root",
+   "bundle": "chain.x5c_untrusted_root.bundle.json",
+   "origin": "vectors/chain.json name=x5c_untrusted_root",
+   "expected": "reject",
+   "detail": "does not chain to a trusted root",
+   "notes": [
+    "root key given as an x5c chain with 1 trusted root certificate(s); not representable (no x5c support)"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM03:x5c_unsupported"
+    ],
+    "classification": "disagree",
+    "reason": "x5c"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM03:x5c_unsupported"
+    ],
+    "classification": "disagree",
+    "reason": "x5c"
+   }
+  },
+  {
+   "id": "chain.x5c_fail_open",
+   "bundle": "chain.x5c_fail_open.bundle.json",
+   "origin": "vectors/chain.json name=x5c_fail_open",
+   "expected": "reject",
+   "detail": "no trustedRoots — refusing to fail open [hardening]",
+   "notes": [
+    "root key given as an x5c chain with 0 trusted root certificate(s); not representable (no x5c support)"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM03:x5c_unsupported"
+    ],
+    "classification": "disagree",
+    "reason": "x5c"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM03:x5c_unsupported"
+    ],
+    "classification": "disagree",
+    "reason": "x5c"
+   }
+  },
+  {
+   "id": "chain.x5c_expired",
+   "bundle": "chain.x5c_expired.bundle.json",
+   "origin": "vectors/chain.json name=x5c_expired",
+   "expected": "reject",
+   "detail": "cert outside validity window [hardening]",
+   "notes": [
+    "root key given as an x5c chain with 1 trusted root certificate(s); not representable (no x5c support)"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM03:x5c_unsupported"
+    ],
+    "classification": "disagree",
+    "reason": "x5c"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM03:x5c_unsupported"
+    ],
+    "classification": "disagree",
+    "reason": "x5c"
+   }
+  },
+  {
+   "id": "chain.x5c_non_ca_intermediate",
+   "bundle": "chain.x5c_non_ca_intermediate.bundle.json",
+   "origin": "vectors/chain.json name=x5c_non_ca_intermediate",
+   "expected": "reject",
+   "detail": "intermediate is not a CA [hardening]",
+   "notes": [
+    "root key given as an x5c chain with 1 trusted root certificate(s); not representable (no x5c support)"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM03:x5c_unsupported"
+    ],
+    "classification": "disagree",
+    "reason": "x5c"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM03:x5c_unsupported"
+    ],
+    "classification": "disagree",
+    "reason": "x5c"
+   }
+  },
+  {
+   "id": "chain.x5c_wrong_curve_leaf",
+   "bundle": "chain.x5c_wrong_curve_leaf.bundle.json",
+   "origin": "vectors/chain.json name=x5c_wrong_curve_leaf",
+   "expected": "reject",
+   "detail": "leaf not EC P-256 [hardening]",
+   "notes": [
+    "root key given as an x5c chain with 1 trusted root certificate(s); not representable (no x5c support)"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM02:alg_not_allowed"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM02:alg_not_allowed"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "receipts.payment_receipt_valid",
+   "bundle": "receipts.payment_receipt_valid.bundle.json",
+   "origin": "vectors/receipts.json name=payment_receipt_valid",
+   "expected": "accept",
+   "detail": "verified: ES256 receipt signed by the issuer; reference = sd_hash of the final segment of the closed mandate chain.",
+   "notes": [
+    "the vector ships no key for the mandate chain's root"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "no-key"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "no-key"
+   }
+  },
+  {
+   "id": "receipts.payment_receipt_valid_3hop",
+   "bundle": "receipts.payment_receipt_valid_3hop.bundle.json",
+   "origin": "vectors/receipts.json name=payment_receipt_valid_3hop",
+   "expected": "accept",
+   "detail": "verified: Reference is over the FINAL SD-JWT of a 3-hop chain, not the root.",
+   "notes": [
+    "the vector ships no key for the mandate chain's root"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM03:no_key",
+     "PM20:delegation_unsupported"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "delegation-depth"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM03:no_key",
+     "PM20:delegation_unsupported"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "delegation-depth"
+   }
+  },
+  {
+   "id": "receipts.payment_receipt_wrong_key",
+   "bundle": "receipts.payment_receipt_wrong_key.bundle.json",
+   "origin": "vectors/receipts.json name=payment_receipt_wrong_key",
+   "expected": "reject",
+   "detail": "verification_failed: Receipt not signed by the expected issuer key MUST NOT verify.",
+   "notes": [
+    "the vector ships no key for the mandate chain's root"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PR02:signature_invalid"
+    ],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PR02:signature_invalid"
+    ],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "receipts.payment_receipt_tampered_payload",
+   "bundle": "receipts.payment_receipt_tampered_payload.bundle.json",
+   "origin": "vectors/receipts.json name=payment_receipt_tampered_payload",
+   "expected": "reject",
+   "detail": "verification_failed: Payload altered after signing; signature MUST NOT verify.",
+   "notes": [
+    "the vector ships no key for the mandate chain's root"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PR02:signature_invalid"
+    ],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PR02:signature_invalid"
+    ],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "receipts.payment_receipt_reference_mismatch",
+   "bundle": "receipts.payment_receipt_reference_mismatch.bundle.json",
+   "origin": "vectors/receipts.json name=payment_receipt_reference_mismatch",
+   "expected": "reject",
+   "detail": "receipt_reference_not_found_in_store: Payment Receipt reference MUST match the hash of the closed Payment Mandate presented.",
+   "notes": [
+    "the vector ships no key for the mandate chain's root"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PR04:reference_mismatch"
+    ],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PR04:reference_mismatch"
+    ],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "receipts.payment_receipt_reference_is_root_hash",
+   "bundle": "receipts.payment_receipt_reference_is_root_hash.bundle.json",
+   "origin": "vectors/receipts.json name=payment_receipt_reference_is_root_hash",
+   "expected": "reject",
+   "detail": "receipt_reference_not_found_in_store: Reference computed over the ROOT (open) segment instead of the final closed segment MUST NOT match.",
+   "notes": [
+    "the vector ships no key for the mandate chain's root"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PR04:reference_mismatch"
+    ],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PR04:reference_mismatch"
+    ],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "receipts.payment_receipt_missing_payment_id",
+   "bundle": "receipts.payment_receipt_missing_payment_id.bundle.json",
+   "origin": "vectors/receipts.json name=payment_receipt_missing_payment_id",
+   "expected": "reject",
+   "detail": "verification_failed: Payment Receipt MUST carry required field 'payment_id'.",
+   "notes": [
+    "the vector ships no key for the mandate chain's root"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PR03:missing_field"
+    ],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PR03:missing_field"
+    ],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "receipts.payment_receipt_missing_reference",
+   "bundle": "receipts.payment_receipt_missing_reference.bundle.json",
+   "origin": "vectors/receipts.json name=payment_receipt_missing_reference",
+   "expected": "reject",
+   "detail": "verification_failed: Receipt MUST carry 'reference'.",
+   "notes": [
+    "the vector ships no key for the mandate chain's root"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PR03:missing_field"
+    ],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PR03:missing_field"
+    ],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "receipts.payment_receipt_error_without_error_code",
+   "bundle": "receipts.payment_receipt_error_without_error_code.bundle.json",
+   "origin": "vectors/receipts.json name=payment_receipt_error_without_error_code",
+   "expected": "reject",
+   "detail": "verification_failed: An error receipt MUST carry an 'error' code.",
+   "notes": [
+    "the vector ships no key for the mandate chain's root"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PR03:missing_field"
+    ],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PR03:missing_field"
+    ],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "receipts.checkout_receipt_valid",
+   "bundle": "receipts.checkout_receipt_valid.bundle.json",
+   "origin": "vectors/receipts.json name=checkout_receipt_valid",
+   "expected": "accept",
+   "detail": "verified: Checkout Receipt reference = sd_hash of the final segment of the closed Checkout Mandate chain.",
+   "notes": [
+    "the vector ships no key for the mandate chain's root"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM32:signature_invalid"
+    ],
+    "blocking": [
+     "CM03:no_key"
+    ],
+    "classification": "disagree",
+    "reason": "placeholder-checkout-signature"
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM32:signature_invalid"
+    ],
+    "blocking": [
+     "CM03:no_key"
+    ],
+    "classification": "disagree",
+    "reason": "placeholder-checkout-signature"
+   }
+  },
+  {
+   "id": "receipts.checkout_receipt_reference_mismatch",
+   "bundle": "receipts.checkout_receipt_reference_mismatch.bundle.json",
+   "origin": "vectors/receipts.json name=checkout_receipt_reference_mismatch",
+   "expected": "reject",
+   "detail": "receipt_reference_not_found_in_store: Checkout Receipt reference MUST match the hash of the closed Checkout Mandate presented.",
+   "notes": [
+    "the vector ships no key for the mandate chain's root"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM32:signature_invalid",
+     "CR04:reference_mismatch"
+    ],
+    "blocking": [
+     "CM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM32:signature_invalid",
+     "CR04:reference_mismatch"
+    ],
+    "blocking": [
+     "CM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "receipts.checkout_receipt_wrong_key",
+   "bundle": "receipts.checkout_receipt_wrong_key.bundle.json",
+   "origin": "vectors/receipts.json name=checkout_receipt_wrong_key",
+   "expected": "reject",
+   "detail": "verification_failed: Receipt not signed by the expected issuer key MUST NOT verify.",
+   "notes": [
+    "the vector ships no key for the mandate chain's root"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM32:signature_invalid",
+     "CR02:signature_invalid"
+    ],
+    "blocking": [
+     "CM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM32:signature_invalid",
+     "CR02:signature_invalid"
+    ],
+    "blocking": [
+     "CM03:no_key"
+    ],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "hash-pairs.chain",
+   "bundle": "hash-pairs.chain.bundle.json",
+   "origin": "vectors/hash-pairs.json rawSplitOnDoubleTilde",
+   "expected": "accept",
+   "detail": "reference chain for the per-segment hash values",
+   "notes": [
+    "the vector ships no key"
+   ],
+   "options": {
+    "at": 1780000000
+   },
+   "context_options": {
+    "at": 1780000000
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "no-key"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [
+     "PM03:no_key"
+    ],
+    "classification": "agree (incomplete input)",
+    "reason": "no-key"
+   }
+  }
+ ]
+}

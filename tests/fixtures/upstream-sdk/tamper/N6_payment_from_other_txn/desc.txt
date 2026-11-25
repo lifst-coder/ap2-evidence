@@ -1,0 +1,1 @@
+payment mandate + receipt replaced with those of another upstream-minted txn

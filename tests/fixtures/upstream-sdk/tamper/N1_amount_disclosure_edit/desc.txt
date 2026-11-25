@@ -1,0 +1,1 @@
+closed payment disclosure amount 9998 -> 1, re-encoded, not re-signed

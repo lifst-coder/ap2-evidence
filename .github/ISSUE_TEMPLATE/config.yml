@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: AP2 specification
+    url: https://github.com/google-agentic-commerce/AP2
+    about: Questions about the Agent Payments Protocol itself (not about this tool) belong in the AP2 repository.
+  - name: Security policy (private report)
+    url: https://github.com/lifst-coder/ap2-evidence/security/advisories/new
+    about: Report a vulnerability privately, for example a forged or tampered bundle that comes out VERIFIED. Do not open a public issue for this.

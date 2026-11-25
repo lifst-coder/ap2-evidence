@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lifst-coder/ap2-evidence/schemas/batch-summary.schema.json",
+  "title": "ap2-evidence batch verification summary (summary_version 1)",
+  "description": "Printed by 'ap2-evidence verify --format json' when several bundles or a folder are verified. See docs/bundle-format.md, section 'Batch runs'.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["summary_version", "tool", "worst_verdict", "exit_code", "counts", "bundles", "skipped"],
+  "properties": {
+    "summary_version": {"const": "1"},
+    "tool": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {"name": {"const": "ap2-evidence"}, "version": {"type": "string"}}
+    },
+    "worst_verdict": {"$ref": "#/$defs/verdict", "description": "Verdict matching exit_code; ERROR when any file could not be read or any report could not be written."},
+    "exit_code": {"enum": [0, 1, 2, 3], "description": "2 if any file is unreadable or any report could not be written, else 1 if any FAILED, else 3 if any INCOMPLETE, else 0."},
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["VERIFIED", "INCOMPLETE", "FAILED", "ERROR"],
+      "properties": {
+        "VERIFIED": {"type": "integer", "minimum": 0},
+        "INCOMPLETE": {"type": "integer", "minimum": 0},
+        "FAILED": {"type": "integer", "minimum": 0},
+        "ERROR": {"type": "integer", "minimum": 0}
+      }
+    },
+    "bundles": {"type": "array", "items": {"$ref": "#/$defs/row"}},
+    "skipped": {
+      "type": "array",
+      "description": "JSON files found in a folder that are not evidence bundles (no bundle_version member). They do not affect the exit code.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["file", "reason"],
+        "properties": {"file": {"type": "string"}, "reason": {"type": "string"}}
+      }
+    }
+  },
+  "$defs": {
+    "verdict": {"enum": ["VERIFIED", "INCOMPLETE", "FAILED", "ERROR"]},
+    "row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "verdict", "outcome", "exit_code", "key_trust", "pass", "fail", "warn", "skip", "failing_checks", "unverified_checks", "report", "error"],
+      "properties": {
+        "file": {"type": "string", "description": "The path as found (folder argument joined with the path inside it)."},
+        "verdict": {"$ref": "#/$defs/verdict"},
+        "outcome": {"enum": ["success", "declined", "conflicting", "unknown", null], "description": "Report.outcome: what the receipts claim happened (success; declined per the payment receipt; conflicting = both receipts authentic but they disagree; unknown). Meaningful only when verdict is VERIFIED. null for ERROR rows."},
+        "exit_code": {"enum": [0, 1, 2, 3], "description": "The exit code for this bundle alone: from its verdict, or 2 for an ERROR row or when its report could not be written."},
+        "key_trust": {"enum": ["pinned", "bundle", "mixed", "none", null], "description": "Where the role keys used came from; null for ERROR rows."},
+        "pass": {"type": "integer", "minimum": 0},
+        "fail": {"type": "integer", "minimum": 0},
+        "warn": {"type": "integer", "minimum": 0},
+        "skip": {"type": "integer", "minimum": 0},
+        "failing_checks": {"type": "array", "items": {"type": "string"}, "description": "IDs of FAIL checks, in report order."},
+        "unverified_checks": {"type": "array", "items": {"type": "string"}, "description": "IDs of required checks that are SKIP (why the verdict is INCOMPLETE)."},
+        "report": {"type": ["string", "null"], "description": "Path of the per-bundle report written with --out-dir."},
+        "error": {"type": ["string", "null"], "description": "Why the file could not be read (ERROR rows), or, for a verified bundle, why its --out-dir report could not be written (starts with 'report not written:'; the verdict is unchanged and report is null)."}
+      }
+    }
+  }
+}

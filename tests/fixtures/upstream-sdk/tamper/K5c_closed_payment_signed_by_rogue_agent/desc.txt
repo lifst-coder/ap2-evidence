@@ -1,0 +1,1 @@
+closed payment signed by a key other than cnf.jwk

@@ -1,0 +1,1 @@
+checkout_jwt disclosure removed from closed checkout segment

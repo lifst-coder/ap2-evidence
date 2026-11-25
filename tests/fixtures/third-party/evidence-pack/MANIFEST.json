@@ -1,0 +1,140 @@
+{
+ "format": "ap2-evidence-cross-check/1",
+ "group": "evidence-pack",
+ "title": "ap2-evidence-pack SDK chains",
+ "source": {
+  "name": "robertolocatelli81-dev/ap2-evidence-pack",
+  "url": "https://github.com/robertolocatelli81-dev/ap2-evidence-pack",
+  "commit": "0a6de915d943086c13349c1911aa671c61c785b6",
+  "licence": "Apache-2.0 (with NOTICE)",
+  "files": "`spec/vectors/ap2_chains/sdk_*`"
+ },
+ "conversion": "Each *.bundle.json re-wraps one vector of the source into the ap2-evidence/1 bundle format (tools/cross_check/convert.py); tokens are copied unchanged. `options` are the verify_bundle arguments without the author's context, `context_options` with it.",
+ "regenerate": "python tools/cross_check run --src <directory with the pinned clones>",
+ "summary": {
+  "vectors": 4,
+  "agree": 1,
+  "agree (incomplete input)": 3,
+  "stricter": 0,
+  "disagree": 0
+ },
+ "summary_with_context": {
+  "vectors": 4,
+  "agree": 1,
+  "agree (incomplete input)": 3,
+  "stricter": 0,
+  "disagree": 0
+ },
+ "vectors": [
+  {
+   "id": "sdk_chainA",
+   "bundle": "sdk_chainA.bundle.json",
+   "origin": "spec/vectors/ap2_chains/sdk_chainA.txt + sdk_receiptA.jwt",
+   "expected": "accept",
+   "detail": "SDK-emitted chain A with receipt A",
+   "notes": [
+    "no expected aud/nonce published with the vector"
+   ],
+   "options": {},
+   "context_options": {},
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "agree (incomplete input)",
+    "reason": "partial-bundle"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "agree (incomplete input)",
+    "reason": "partial-bundle"
+   }
+  },
+  {
+   "id": "sdk_chainA_noreceipt",
+   "bundle": "sdk_chainA_noreceipt.bundle.json",
+   "origin": "spec/vectors/ap2_chains/sdk_chainA.txt",
+   "expected": "accept",
+   "detail": "SDK-emitted chain A",
+   "notes": [
+    "no expected aud/nonce published with the vector"
+   ],
+   "options": {},
+   "context_options": {},
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "agree (incomplete input)",
+    "reason": "partial-bundle"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "agree (incomplete input)",
+    "reason": "partial-bundle"
+   }
+  },
+  {
+   "id": "sdk_chainB",
+   "bundle": "sdk_chainB.bundle.json",
+   "origin": "spec/vectors/ap2_chains/sdk_chainB.txt",
+   "expected": "accept",
+   "detail": "SDK-emitted chain B",
+   "notes": [
+    "no expected aud/nonce published with the vector"
+   ],
+   "options": {},
+   "context_options": {},
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "agree (incomplete input)",
+    "reason": "partial-bundle"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "agree (incomplete input)",
+    "reason": "partial-bundle"
+   }
+  },
+  {
+   "id": "sdk_chain_mixed",
+   "bundle": "sdk_chain_mixed.bundle.json",
+   "origin": "spec/vectors/ap2_chains/sdk_chain_mixed.txt",
+   "expected": "reject",
+   "detail": "open of A + closed of B; the SDK refuses (sd_hash)",
+   "notes": [
+    "no expected aud/nonce published with the vector"
+   ],
+   "options": {},
+   "context_options": {},
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM09:binding_mismatch",
+     "PM32:amount_above_max"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "PM09:binding_mismatch",
+     "PM32:amount_above_max"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  }
+ ]
+}

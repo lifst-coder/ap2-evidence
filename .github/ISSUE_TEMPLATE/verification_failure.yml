@@ -1,0 +1,95 @@
+name: Verification result looks wrong
+description: A bundle from an AP2 implementation (sandbox or test data) fails verification, or is judged wrongly (VERIFIED when it should fail, FAILED or INCOMPLETE when it should pass).
+title: "[verify] "
+labels: ["verification"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. A bundle from a real AP2 implementation that this tool gets wrong is the most useful report this project can receive. Only the command, its `--format issue` output and the confirmation at the bottom are required; fill in whatever else you can. Use sandbox or test data only.
+
+        **Before you paste anything:** mandate tokens and receipts contain payment instrument descriptions, merchant data and buyer data. Use test or sandbox tokens only. Never paste production tokens or private keys. Public keys are fine. If you cannot share the tokens at all, the `--format issue` output alone is still useful. That output and the JSON report contain no raw tokens, but they do contain merchant names, items, amounts and order or payment ids from your tokens, so review them first.
+
+  - type: textarea
+    id: command
+    attributes:
+      label: What you ran
+      description: The exact command line.
+      placeholder: ap2-evidence verify my-bundle.json --format issue
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: report
+    attributes:
+      label: Result (output of --format issue)
+      description: |
+        Run the same command with `--format issue` and paste what it prints. It is short and lists only the checks that did not pass. If the tool crashed instead of printing a report, use the bug report form.
+        The full `--format json` report is welcome too, but attach it as a file (save it with `--out report.json`; zip it if GitHub refuses the file type). Pasted in full it can exceed GitHub's issue size limit.
+      render: markdown
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: ap2-evidence version
+      description: Output of `ap2-evidence --version`.
+      placeholder: "0.1.0"
+    validations:
+      required: false
+
+  - type: textarea
+    id: source
+    attributes:
+      label: Where the tokens came from
+      description: |
+        For example: AP2 sample scenario name and AP2 SDK/repo version or commit; your own implementation (language, library used for SD-JWT and signing); a third-party agent or merchant platform.
+      placeholder: "AP2 samples, human-present card scenario, AP2 repo commit abc1234"
+    validations:
+      required: false
+
+  - type: input
+    id: checks
+    attributes:
+      label: Failing check IDs
+      description: The check IDs from the report that you think are wrong, comma separated. See docs/checks.md for what each ID means.
+      placeholder: "CM09, PR04"
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+      description: Which verdict or check result you expected, and why. A link to the AP2 spec section or source line that supports your reading helps a lot.
+    validations:
+      required: false
+
+  - type: textarea
+    id: inspect
+    attributes:
+      label: "Optional: inspect output"
+      description: Output of `ap2-evidence inspect FILE` for the token or receipt involved. Remove or replace anything that identifies a real person, card or account (names, e-mail addresses, card descriptions, account numbers); hashes and public keys can stay.
+      render: text
+    validations:
+      required: false
+
+  - type: textarea
+    id: bundle
+    attributes:
+      label: "Optional: the bundle itself (test/sandbox only)"
+      description: |
+        If you can share it, paste the bundle JSON here or attach it as a file (drag and drop). This makes the problem reproducible. Test or sandbox tokens only.
+      render: json
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: redaction
+    attributes:
+      label: Redaction
+      options:
+        - label: I have not pasted production tokens, real payment or personal data, or any private key.
+          required: true

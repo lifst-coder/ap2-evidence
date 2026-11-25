@@ -1,0 +1,42 @@
+name: Feature request
+description: A check, report field, or input format you need.
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: What are you trying to prove or check?
+      description: Describe the question the report should answer, for example "that the amount charged never exceeded the limit in the open payment mandate".
+    validations:
+      required: true
+
+  - type: dropdown
+    id: reader
+    attributes:
+      label: Who reads the report?
+      multiple: true
+      options:
+        - Developer debugging an AP2 integration
+        - Dispute or chargeback analyst
+        - Auditor or compliance reviewer
+        - Other (describe below)
+    validations:
+      required: false
+
+  - type: input
+    id: spec
+    attributes:
+      label: AP2 spec section, if relevant
+      description: Link to the spec section or source file and line.
+      placeholder: "https://github.com/google-agentic-commerce/AP2/blob/<commit>/docs/..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Anything else
+      description: Example inputs (test data only), the output you would like to see, workarounds you use today.
+    validations:
+      required: false

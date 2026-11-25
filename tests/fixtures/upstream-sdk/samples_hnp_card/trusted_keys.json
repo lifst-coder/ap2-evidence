@@ -1,0 +1,29 @@
+{
+  "mandate_issuer": [
+    {
+      "crv": "P-256",
+      "kid": "agent-provider-key-1",
+      "kty": "EC",
+      "x": "UeBj9v7WCrweaQQxa3j4Yu-KL3WpW5w5PZQmM9qijSU",
+      "y": "p4hFAyNDMGxB8ylGPlB7fsdhjF8KzokjIUTmieeckoE"
+    }
+  ],
+  "merchant": [
+    {
+      "crv": "P-256",
+      "kid": "merchant-key-1",
+      "kty": "EC",
+      "x": "Ni38saSM3jC0uv1MsTa5TAXl2Ets6zqvcj_ULPT4gNk",
+      "y": "5z9r9NDWwWplvZ9JtG1_aYyxQVbwkqI9Hrlj8XWBq3I"
+    }
+  ],
+  "payment_processor": [
+    {
+      "crv": "P-256",
+      "kid": "merchant-payment-processor-key-1",
+      "kty": "EC",
+      "x": "7dd48SvmACEwP03z_fw29AZJ8-0nJWgR_0PqRov3AvY",
+      "y": "t2cKTIzDnc5800lydCB_sABouxgZHx4s_V9Ox3Wk5aQ"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+processor signs a status=Error payment receipt

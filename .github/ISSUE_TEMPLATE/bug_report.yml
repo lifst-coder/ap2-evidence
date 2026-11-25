@@ -1,0 +1,51 @@
+name: Bug report
+description: Crash, traceback, wrong exit code, or install problem.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        If a bundle is verified but the result looks wrong, use the "Verification failure" form instead. Do not paste production tokens or private keys here.
+
+  - type: textarea
+    id: command
+    attributes:
+      label: Command
+      description: The exact command you ran (or the install command, for install problems).
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: output
+    attributes:
+      label: Output
+      description: Full output, including any traceback. Mention the exit code if it is the problem (`echo $?` on Linux/macOS, `echo $LASTEXITCODE` in PowerShell).
+      render: text
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: ap2-evidence version
+      description: Output of `ap2-evidence --version`, or the version you tried to install.
+    validations:
+      required: false
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "Ubuntu 24.04 / Windows 11 / macOS 15"
+    validations:
+      required: false
+
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      description: Output of `python --version`.
+    validations:
+      required: false

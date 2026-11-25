@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lifst-coder/ap2-evidence/schemas/bundle.schema.json",
+  "title": "ap2-evidence evidence bundle (ap2-evidence/1)",
+  "description": "Container for the artifacts of one AP2 v0.2 purchase. AP2 itself defines no such container; see docs/bundle-format.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["bundle_version"],
+  "properties": {
+    "bundle_version": {"const": "ap2-evidence/1"},
+    "checkout_mandate": {
+      "type": "string",
+      "description": "Checkout mandate chain: '<open SD-JWT>~<disc>~...~~<closed KB-SD-JWT>~<disc>~...~', or one directly signed SD-JWT ending in '~'.",
+      "minLength": 1
+    },
+    "payment_mandate": {
+      "type": "string",
+      "description": "Payment mandate chain, same shape as checkout_mandate.",
+      "minLength": 1
+    },
+    "checkout_receipt": {
+      "description": "Merchant-signed compact JWT (not an SD-JWT). Also read: a JSON object, or a string holding a JSON object, which is the unsigned receipt some sample flows return. This schema describes what the verifier reads, not what a receipt is worth: an unsigned receipt proves nothing and is reported as unsigned_receipt (INCOMPLETE).",
+      "$ref": "#/$defs/receipt"
+    },
+    "payment_receipt": {
+      "description": "Payment-processor-signed compact JWT (not an SD-JWT). Also read: a JSON object, or a string holding a JSON object, which is the unsigned receipt some sample flows return. This schema describes what the verifier reads, not what a receipt is worth: an unsigned receipt proves nothing and is reported as unsigned_receipt (INCOMPLETE).",
+      "$ref": "#/$defs/receipt"
+    },
+    "keys": {
+      "type": "object",
+      "description": "Public keys supplied with the bundle. They are self-asserted by whoever assembled the bundle; keys passed with --trusted-keys take precedence.",
+      "additionalProperties": false,
+      "properties": {
+        "mandate_issuer": {"$ref": "#/$defs/key_list"},
+        "merchant": {"$ref": "#/$defs/key_list"},
+        "payment_processor": {"$ref": "#/$defs/key_list"}
+      }
+    },
+    "expected": {
+      "type": "object",
+      "description": "Values the closed mandates' aud and nonce must equal.",
+      "additionalProperties": false,
+      "properties": {
+        "checkout": {"$ref": "#/$defs/expected"},
+        "payment": {"$ref": "#/$defs/expected"}
+      }
+    },
+    "note": {"type": "string", "description": "Free text, ignored by the verifier."}
+  },
+  "$defs": {
+    "receipt": {
+      "anyOf": [
+        {"type": "string", "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]*$", "description": "Compact JWS (the signed receipt)."},
+        {"type": "object", "description": "Unsigned receipt as a JSON object."},
+        {"type": "string", "pattern": "^\\s*\\{", "description": "Unsigned receipt as a string holding a JSON object."}
+      ]
+    },
+    "key_list": {"type": "array", "maxItems": 64, "items": {"$ref": "#/$defs/jwk"}},
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "aud": {"type": "string"},
+        "nonce": {"type": "string"}
+      }
+    },
+    "jwk": {
+      "description": "EC P-256 public key, mirroring upstream code/sdk/schemas/ap2/types/jwk.json.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kty", "crv", "x", "y"],
+      "properties": {
+        "kty": {"const": "EC"},
+        "crv": {"const": "P-256"},
+        "x": {"type": "string", "pattern": "^[A-Za-z0-9_-]{43}$"},
+        "y": {"type": "string", "pattern": "^[A-Za-z0-9_-]{43}$"},
+        "use": {"enum": ["sig", "enc"]},
+        "key_ops": {"type": "array", "items": {"type": "string"}},
+        "alg": {"const": "ES256"},
+        "kid": {"type": "string"},
+        "x5u": {"type": "string"},
+        "x5c": {"type": "array", "items": {"type": "string"}},
+        "x5t": {"type": "string"},
+        "x5t#S256": {"type": "string"}
+      }
+    }
+  }
+}

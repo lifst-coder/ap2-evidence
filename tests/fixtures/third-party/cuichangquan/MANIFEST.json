@@ -1,0 +1,1702 @@
+{
+ "format": "ap2-evidence-cross-check/1",
+ "group": "cuichangquan",
+ "title": "cuichangquan O2-O5 cases",
+ "source": {
+  "name": "cuichangquan/ap2-mandate-verifier",
+  "url": "https://github.com/cuichangquan/ap2-mandate-verifier",
+  "commit": "0b591ffe7595c933e3d878b28ea328333d1ec931",
+  "licence": "MIT",
+  "files": "`research/stage11/inputs/O2O5_PUBLIC_CASES.json`"
+ },
+ "conversion": "Each *.bundle.json re-wraps one vector of the source into the ap2-evidence/1 bundle format (tools/cross_check/convert.py); tokens are copied unchanged. `options` are the verify_bundle arguments without the author's context, `context_options` with it.",
+ "regenerate": "python tools/cross_check run --src <directory with the pinned clones>",
+ "summary": {
+  "vectors": 32,
+  "agree": 20,
+  "agree (incomplete input)": 2,
+  "stricter": 0,
+  "disagree": 10
+ },
+ "summary_with_context": {
+  "vectors": 32,
+  "agree": 27,
+  "agree (incomplete input)": 2,
+  "stricter": 0,
+  "disagree": 3
+ },
+ "vectors": [
+  {
+   "id": "O2O5.FULL",
+   "bundle": "O2O5.FULL.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.FULL",
+   "expected": "accept",
+   "detail": "unverified/scoped_constraints_verified_only",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "agree (incomplete input)",
+    "reason": "partial-bundle"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "agree (incomplete input)",
+    "reason": "partial-bundle"
+   }
+  },
+  {
+   "id": "O2O5.HIDDEN",
+   "bundle": "O2O5.HIDDEN.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.HIDDEN",
+   "expected": "reject",
+   "detail": "rejected/missing_disclosure",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM34:none_revealed"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM34:none_revealed"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.UNKNOWN",
+   "bundle": "O2O5.UNKNOWN.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.UNKNOWN",
+   "expected": "reject",
+   "detail": "rejected/unsupported_disclosure_profile",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM18:preset_claim_changed"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM18:preset_claim_changed"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.DUPLICATE",
+   "bundle": "O2O5.DUPLICATE.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.DUPLICATE",
+   "expected": "reject",
+   "detail": "rejected/duplicate_commitment",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM04:digest_reused",
+     "CM34:none_revealed"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM04:digest_reused",
+     "CM34:none_revealed"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.EXTRA",
+   "bundle": "O2O5.EXTRA.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.EXTRA",
+   "expected": "reject",
+   "detail": "rejected/extra_disclosure",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM04:unreferenced_disclosure"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM04:unreferenced_disclosure"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.DECOY",
+   "bundle": "O2O5.DECOY.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.DECOY",
+   "expected": "reject",
+   "detail": "rejected/missing_disclosure",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM34:none_revealed"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM34:none_revealed"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.NORMAL",
+   "bundle": "O2O5.NORMAL.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.NORMAL",
+   "expected": "accept",
+   "detail": "unverified/scoped_constraints_verified_only",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "agree (incomplete input)",
+    "reason": "partial-bundle"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "agree (incomplete input)",
+    "reason": "partial-bundle"
+   }
+  },
+  {
+   "id": "O2O5.WRONG_AGENT_KEY",
+   "bundle": "O2O5.WRONG_AGENT_KEY.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.WRONG_AGENT_KEY",
+   "expected": "reject",
+   "detail": "rejected/agent_key_mismatch",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "KhzbwnGJLgG5d-j7zVT-XS1jBNRGQbfyTY79XWCss1Y",
+      "y": "SxRagqchaCMXD6Yzm_8jJW2X-vCnCdH9AGGc6sDDzAk"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "disagree",
+    "reason": "rp-expectation-not-supplied"
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "EX01:agent_key_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.WRONG_AGENT_SIGNATURE",
+   "bundle": "O2O5.WRONG_AGENT_SIGNATURE.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.WRONG_AGENT_SIGNATURE",
+   "expected": "reject",
+   "detail": "rejected/invalid_root_signature",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM08:signature_invalid"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM08:signature_invalid"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.TAMPERED_AGENT_SIGNATURE",
+   "bundle": "O2O5.TAMPERED_AGENT_SIGNATURE.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.TAMPERED_AGENT_SIGNATURE",
+   "expected": "reject",
+   "detail": "rejected/invalid_root_signature",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM08:signature_invalid"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM08:signature_invalid"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.ROOT_BINDING",
+   "bundle": "O2O5.ROOT_BINDING.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.ROOT_BINDING",
+   "expected": "reject",
+   "detail": "rejected/root_binding_mismatch",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM09:binding_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM09:binding_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.AUDIENCE",
+   "bundle": "O2O5.AUDIENCE.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.AUDIENCE",
+   "expected": "reject",
+   "detail": "rejected/audience_mismatch",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "different-host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM14:aud_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM14:aud_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.NONCE",
+   "bundle": "O2O5.NONCE.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.NONCE",
+   "expected": "reject",
+   "detail": "rejected/nonce_mismatch",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "different-nonce"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM15:nonce_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM15:nonce_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.EXPIRED",
+   "bundle": "O2O5.EXPIRED.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.EXPIRED",
+   "expected": "reject",
+   "detail": "rejected/invalid_purchase_time",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000100
+   },
+   "context_options": {
+    "at": 1800000100,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "disagree",
+    "reason": "exp-boundary"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "disagree",
+    "reason": "exp-boundary"
+   }
+  },
+  {
+   "id": "O2O5.FUTURE_AGENT",
+   "bundle": "O2O5.FUTURE_AGENT.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.FUTURE_AGENT",
+   "expected": "reject",
+   "detail": "rejected/invalid_purchase_time",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "disagree",
+    "reason": "skew-default"
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM19:not_valid_at"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.CLOSED_TIME",
+   "bundle": "O2O5.CLOSED_TIME.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.CLOSED_TIME",
+   "expected": "reject",
+   "detail": "rejected/delegation_claim_mismatch",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "disagree",
+    "reason": "time-claims-not-preset"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "disagree",
+    "reason": "time-claims-not-preset"
+   }
+  },
+  {
+   "id": "O2O5.CHECKOUT_ORIGINAL",
+   "bundle": "O2O5.CHECKOUT_ORIGINAL.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.CHECKOUT_ORIGINAL",
+   "expected": "reject",
+   "detail": "rejected/checkout_binding_mismatch",
+   "notes": [
+    "host_checkout_jws differs from the checkout_jwt inside the terminal token; a bundle holds only the one inside the mandate",
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "disagree",
+    "reason": "host-copy-of-checkout"
+   },
+   "result_with_context": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "disagree",
+    "reason": "host-copy-of-checkout"
+   }
+  },
+  {
+   "id": "O2O5.CHECKOUT_HASH",
+   "bundle": "O2O5.CHECKOUT_HASH.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.CHECKOUT_HASH",
+   "expected": "reject",
+   "detail": "rejected/checkout_binding_mismatch",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM31:hash_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM31:hash_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.WRONG_MERCHANT_KEY",
+   "bundle": "O2O5.WRONG_MERCHANT_KEY.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.WRONG_MERCHANT_KEY",
+   "expected": "reject",
+   "detail": "rejected/invalid_root_signature",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM32:signature_invalid"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM32:signature_invalid"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.CHECKOUT_ID",
+   "bundle": "O2O5.CHECKOUT_ID.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.CHECKOUT_ID",
+   "expected": "reject",
+   "detail": "rejected/checkout_identity_mismatch",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "other-order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "disagree",
+    "reason": "rp-expectation-not-supplied"
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "EX02:checkout_id_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.MERCHANT_ID",
+   "bundle": "O2O5.MERCHANT_ID.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.MERCHANT_ID",
+   "expected": "reject",
+   "detail": "rejected/checkout_identity_mismatch",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "other-shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "disagree",
+    "reason": "rp-expectation-not-supplied"
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "EX03:merchant_id_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.S01",
+   "bundle": "O2O5.S01.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.S01",
+   "expected": "reject",
+   "detail": "rejected/invalid_scoped_schema",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM21:malformed_constraint"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM21:malformed_constraint"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.UNKNOWN_CONSTRAINT",
+   "bundle": "O2O5.UNKNOWN_CONSTRAINT.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.UNKNOWN_CONSTRAINT",
+   "expected": "reject",
+   "detail": "rejected/unsupported_constraint",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM17:unknown_constraint_type"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM17:unknown_constraint_type"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.QUANTITY_TYPE",
+   "bundle": "O2O5.QUANTITY_TYPE.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.QUANTITY_TYPE",
+   "expected": "reject",
+   "detail": "rejected/invalid_scoped_schema",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM35:malformed_checkout"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM35:malformed_checkout"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.QUANTITY_MISMATCH",
+   "bundle": "O2O5.QUANTITY_MISMATCH.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.QUANTITY_MISMATCH",
+   "expected": "reject",
+   "detail": "rejected/constraint_mismatch",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM35:quantity_exceeded"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM35:quantity_exceeded"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.AMOUNT",
+   "bundle": "O2O5.AMOUNT.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.AMOUNT",
+   "expected": "reject",
+   "detail": "rejected/amount_mismatch",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 201,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "disagree",
+    "reason": "rp-expectation-not-supplied"
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "EX04:total_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.CURRENCY",
+   "bundle": "O2O5.CURRENCY.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.CURRENCY",
+   "expected": "reject",
+   "detail": "rejected/currency_mismatch",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "disagree",
+    "reason": "rp-expectation-not-supplied"
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "EX04:total_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.TOTALS",
+   "bundle": "O2O5.TOTALS.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.TOTALS",
+   "expected": "reject",
+   "detail": "rejected/amount_mismatch",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "INCOMPLETE",
+    "failing": [],
+    "blocking": [],
+    "classification": "disagree",
+    "reason": "rp-expectation-not-supplied"
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "EX04:total_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.AGENT_BEFORE_S01",
+   "bundle": "O2O5.AGENT_BEFORE_S01.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.AGENT_BEFORE_S01",
+   "expected": "reject",
+   "detail": "rejected/invalid_root_signature",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM08:signature_invalid",
+     "CM21:malformed_constraint"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM08:signature_invalid",
+     "CM21:malformed_constraint"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.NONCE_BEFORE_MERCHANT",
+   "bundle": "O2O5.NONCE_BEFORE_MERCHANT.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.NONCE_BEFORE_MERCHANT",
+   "expected": "reject",
+   "detail": "rejected/nonce_mismatch",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "different"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM15:nonce_mismatch",
+     "CM32:signature_invalid"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM15:nonce_mismatch",
+     "CM32:signature_invalid"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.MERCHANT_BEFORE_QUANTITY",
+   "bundle": "O2O5.MERCHANT_BEFORE_QUANTITY.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.MERCHANT_BEFORE_QUANTITY",
+   "expected": "reject",
+   "detail": "rejected/invalid_root_signature",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 200,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM32:signature_invalid",
+     "CM35:malformed_checkout"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM32:signature_invalid",
+     "CM35:malformed_checkout"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  },
+  {
+   "id": "O2O5.HIDDEN_BEFORE_AMOUNT",
+   "bundle": "O2O5.HIDDEN_BEFORE_AMOUNT.bundle.json",
+   "origin": "research/stage11/inputs/O2O5_PUBLIC_CASES.json cases.HIDDEN_BEFORE_AMOUNT",
+   "expected": "reject",
+   "detail": "rejected/missing_disclosure",
+   "notes": [
+    "context: expected agent key, checkout id, merchant id and total supplied; skew 0 (the author's profile has no implicit skew)"
+   ],
+   "options": {
+    "at": 1800000000
+   },
+   "context_options": {
+    "at": 1800000000,
+    "skew": 0,
+    "expected": {
+     "checkout": {
+      "aud": "host",
+      "nonce": "n"
+     },
+     "agent_key": {
+      "kty": "EC",
+      "crv": "P-256",
+      "x": "CYc-eWKHEoAUxNr53LsQx7ai5kmeetqpIalJwYILuoE",
+      "y": "-Ldi3za-7rnyOUUWZFlAWNvH_MAbpREXoXCisuWX3L0"
+     },
+     "checkout_id": "order",
+     "merchant_id": "shop",
+     "total": {
+      "amount": 201,
+      "currency": "USD"
+     }
+    }
+   },
+   "result": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM34:none_revealed"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   },
+   "result_with_context": {
+    "verdict": "FAILED",
+    "failing": [
+     "CM34:none_revealed",
+     "EX04:total_mismatch"
+    ],
+    "blocking": [],
+    "classification": "agree",
+    "reason": null
+   }
+  }
+ ]
+}

@@ -1,0 +1,84 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ap2-evidence"
+version = "0.1.0"
+description = "Offline verifier for AP2 v0.2 payment evidence: mandate chains, receipts and the hash bindings between them."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "Taegyun Kim" }]
+keywords = ["ap2", "agent-payments", "sd-jwt", "mandate", "dispute", "verifier"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security :: Cryptography",
+    "Topic :: Office/Business :: Financial",
+    "Typing :: Typed",
+]
+dependencies = ["cryptography>=41"]
+
+[project.optional-dependencies]
+test = ["pytest", "jsonschema"]
+dev = ["pytest", "jsonschema", "ruff>=0.17,<0.18", "mypy>=2.4,<2.5", "build", "twine"]
+
+[project.scripts]
+ap2-evidence = "ap2_evidence.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/lifst-coder/ap2-evidence"
+Repository = "https://github.com/lifst-coder/ap2-evidence"
+Issues = "https://github.com/lifst-coder/ap2-evidence/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ap2_evidence"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/",
+    "tests/",
+    "docs/",
+    "examples/",
+    "tools/",
+    "pyproject.toml",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "NOTICE",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D"]
+
+[tool.mypy]
+strict = true
+python_version = "3.10"
+files = ["src", "tools/cross_check"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"

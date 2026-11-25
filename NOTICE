@@ -1,0 +1,49 @@
+ap2-evidence
+Copyright 2026 Taegyun Kim
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The files in tests/fixtures/official/ and the file
+examples/official-ap2-v0.2-docs.bundle.json contain sample tokens taken,
+unmodified, from the AP2 documentation (google-agentic-commerce/AP2,
+https://github.com/google-agentic-commerce/AP2, commit
+e1ea56db72a6385bce3e5c1112b3a56ce60acb43), which is licensed under the
+Apache License, Version 2.0.
+
+Third-party test vectors in tests/fixtures/third-party/. Each directory holds
+converted files only: every *.bundle.json re-wraps one vector of the source
+into the ap2-evidence/1 bundle format (tokens and public keys copied unchanged,
+public keys converted from PEM to JWK where the source gives PEM; expected
+aud/nonce moved into the bundle); MANIFEST.json records the original file of
+each vector, the author's expected outcome and our results. The source's
+licence files are copied verbatim into the directory. The conversion is done by
+tools/cross_check/convert.py.
+
+- tests/fixtures/third-party/goodmeta/: converted from goodmeta/ap2-conformance
+  (https://github.com/goodmeta/ap2-conformance, commit
+  41dff653dea4a3025ca6e1d5339121cd8a1623a5), Copyright 2026 Good Meta,
+  Apache License 2.0; taken: the token vectors of vectors/chain.json,
+  vectors/receipts.json and vectors/hash-pairs.json. Its NOTICE (copied as
+  tests/fixtures/third-party/goodmeta/NOTICE) states that the vectors were
+  minted from the AP2 reference SDK (google-agentic-commerce/AP2, Apache-2.0).
+- tests/fixtures/third-party/kya-bench/: converted from NagaYu/kya-bench
+  (https://github.com/NagaYu/kya-bench, commit
+  689c379361956de88ad3d1b6ec37e2f85f4a6fcb), Apache License 2.0; taken: the
+  bundles of the fixtures/vectors/*.json files with "protocol": "ap2", and
+  the EC public keys of fixtures/jwks.json.
+- tests/fixtures/third-party/cuichangquan/: converted from
+  cuichangquan/ap2-mandate-verifier
+  (https://github.com/cuichangquan/ap2-mandate-verifier, commit
+  0b591ffe7595c933e3d878b28ea328333d1ec931), Copyright (c) 2026 AP2 Mandate
+  Verifier contributors, MIT License; taken: the cases of
+  research/stage11/inputs/O2O5_PUBLIC_CASES.json (root presentation and
+  terminal token joined into one chain; public keys converted from PEM).
+- tests/fixtures/third-party/evidence-pack/: converted from
+  robertolocatelli81-dev/ap2-evidence-pack
+  (https://github.com/robertolocatelli81-dev/ap2-evidence-pack, commit
+  0a6de915d943086c13349c1911aa671c61c785b6), Copyright 2026 Roberto
+  Locatelli, Apache License 2.0; taken: spec/vectors/ap2_chains/sdk_chainA.txt,
+  sdk_chainB.txt, sdk_chain_mixed.txt, sdk_receiptA.jwt, sdk_issuer_pub.json
+  and sdk_mpp_pub.json, which its NOTICE (copied as
+  tests/fixtures/third-party/evidence-pack/NOTICE) states were emitted with
+  the AP2 SDK (google-agentic-commerce/AP2, Apache-2.0).
